@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title id="page-title">Sonu Kumar • 18th Birthday 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Dancing+Script:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8A6B1E;
+  --rose:#E8A598;--rose-dark:#C47A6E;
+  --saffron:#FF9933;--india-green:#138808;
+  --bg:#07070F;--bg2:#0E0E1C;--bg3:#13112A;
+  --cream:#F8F0E3;--cream2:#D4C5A9;--text:#F0E8D8;
+  --glass:rgba(255,255,255,0.04);--glass-border:rgba(201,168,76,0.2);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',serif;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px;}
+
+/* CANVAS */
+#starCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(7,7,15,0.7);border-bottom:1px solid var(--glass-border);}
+.nav-logo{font-family:'Dancing Script',cursive;font-size:1.7rem;color:var(--gold);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:var(--cream2);text-decoration:none;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;transition:color .3s;}
+.nav-links a:hover{color:var(--gold);}
+.admin-btn-nav{background:transparent;border:1px solid var(--gold-dark);color:var(--gold);padding:7px 16px;border-radius:30px;cursor:pointer;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;font-family:'Inter',sans-serif;transition:all .3s;}
+.admin-btn-nav:hover{background:var(--gold);color:var(--bg);}
+
+section{position:relative;z-index:1;}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 20px 70px;}
+
+.flag-strip{display:flex;gap:6px;justify-content:center;margin-bottom:22px;animation:fadeDown .7s ease both;}
+.flag-strip span{font-size:1.4rem;}
+
+.hero-badge{font-family:'Inter',sans-serif;font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dark);padding:7px 20px;border-radius:30px;margin-bottom:28px;display:inline-block;animation:fadeDown .8s .1s ease both;}
+
+/* AVATAR */
+.hero-avatar-wrap{position:relative;margin-bottom:36px;display:inline-block;animation:fadeUp .8s .2s ease both;}
+.avatar-ring{position:absolute;inset:-14px;border-radius:50%;border:1.5px solid transparent;border-top-color:var(--gold);border-right-color:var(--saffron);animation:spin 5s linear infinite;}
+.avatar-ring2{position:absolute;inset:-24px;border-radius:50%;border:1px dashed rgba(201,168,76,0.25);animation:spin 10s linear infinite reverse;}
+.avatar-ring3{position:absolute;inset:-34px;border-radius:50%;border:1px solid transparent;border-bottom-color:var(--india-green);border-left-color:var(--saffron);opacity:0.6;animation:spin 8s linear infinite;}
+.hero-avatar{width:170px;height:170px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 40px rgba(201,168,76,0.35),0 0 80px rgba(201,168,76,0.12);display:block;}
+
+/* BIRTHDAY RIBBON */
+.bday-ribbon{position:absolute;top:-10px;right:-10px;background:linear-gradient(135deg,var(--saffron),#FFB347);color:#fff;font-size:0.6rem;font-family:'Inter',sans-serif;letter-spacing:1px;padding:5px 10px;border-radius:20px;font-weight:600;animation:pulse-small 2s ease-in-out infinite;}
+
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1.05;margin-bottom:8px;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--rose),var(--saffron),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:300% auto;animation:shimmer 5s linear infinite,fadeUp .8s .3s ease both;}
+.hero-tagline{font-family:'Dancing Script',cursive;font-size:clamp(1.3rem,3.5vw,2rem);color:var(--rose);margin-bottom:14px;animation:fadeUp .8s .4s ease both;}
+.hero-bdate{font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:3px;color:var(--cream2);margin-bottom:6px;animation:fadeUp .8s .45s ease both;}
+.hero-location{font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;color:var(--gold-dark);margin-bottom:40px;animation:fadeUp .8s .5s ease both;}
+
+/* BIO PILLS */
+.bio-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:40px;animation:fadeUp .8s .55s ease both;}
+.bio-pill{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:var(--cream);background:var(--glass);border:1px solid var(--glass-border);border-radius:30px;padding:8px 20px;backdrop-filter:blur(8px);}
+
+.scroll-hint{font-family:'Inter',sans-serif;font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dark);display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp 1s 1.2s ease both;opacity:0;animation-fill-mode:forwards;}
+.scroll-hint em{width:1px;height:45px;background:linear-gradient(to bottom,var(--gold),transparent);display:block;}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:18px;margin:0 auto 60px;max-width:280px;}
+.divider-line{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold-dark));}
+.divider-line.rev{background:linear-gradient(to left,transparent,var(--gold-dark));}
+.divider-icon{color:var(--gold);font-size:0.9rem;}
+
+/* SECTION HELPERS */
+.section-eyebrow{font-family:'Inter',sans-serif;font-size:0.62rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3.2rem);font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:18px;}
+.section-subtitle{font-size:1.08rem;color:var(--cream2);line-height:1.9;font-style:italic;}
+
+/* ── ABOUT ── */
+#about{padding:100px 20px;}
+.about-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.about-info{display:flex;flex-direction:column;gap:16px;margin-bottom:28px;}
+.info-row{display:flex;align-items:center;gap:14px;background:var(--glass);border:1px solid var(--glass-border);border-radius:12px;padding:14px 20px;backdrop-filter:blur(8px);transition:border-color .3s;}
+.info-row:hover{border-color:var(--gold);}
+.info-icon{font-size:1.1rem;min-width:24px;text-align:center;}
+.info-label{font-family:'Inter',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);}
+.info-val{font-size:1rem;color:var(--cream);margin-top:2px;}
+.about-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px;}
+.tag{font-family:'Inter',sans-serif;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border:1px solid var(--glass-border);border-radius:30px;color:var(--gold);background:var(--glass);backdrop-filter:blur(8px);transition:all .3s;cursor:default;}
+.tag:hover{border-color:var(--gold);background:rgba(201,168,76,0.1);}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.stat-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:28px 18px;text-align:center;backdrop-filter:blur(10px);transition:transform .3s,box-shadow .3s;}
+.stat-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(201,168,76,0.12);}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-family:'Inter',sans-serif;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--cream2);margin-top:5px;}
+
+/* ── VIBES ── */
+#vibes{padding:80px 20px;background:radial-gradient(ellipse at center,rgba(20,15,40,0.9) 0%,transparent 70%);}
+.vibes-grid{max-width:900px;margin:55px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;}
+.vibe-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:32px 22px;text-align:center;backdrop-filter:blur(14px);transition:all .4s;position:relative;overflow:hidden;}
+.vibe-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,0.06),rgba(232,165,152,0.06));opacity:0;transition:opacity .3s;}
+.vibe-card:hover{transform:translateY(-7px);border-color:var(--gold);box-shadow:0 22px 48px rgba(201,168,76,0.14);}
+.vibe-card:hover::before{opacity:1;}
+.vibe-icon{font-size:2rem;margin-bottom:13px;display:block;}
+.vibe-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);margin-bottom:7px;}
+.vibe-desc{font-size:0.85rem;color:var(--cream2);font-style:italic;line-height:1.6;}
+
+/* ── GALLERY ── */
+#gallery{padding:100px 20px;}
+.gallery-grid{max-width:1000px;margin:55px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.gallery-item{border-radius:14px;overflow:hidden;aspect-ratio:1;position:relative;border:1px solid var(--glass-border);}
+.gallery-item.big{grid-column:span 2;grid-row:span 2;aspect-ratio:auto;}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.gallery-item:hover img{transform:scale(1.06);}
+.gallery-item .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,15,0.85),transparent);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:18px;}
+.gallery-item:hover .overlay{opacity:1;}
+.gallery-caption{font-family:'Dancing Script',cursive;font-size:1.1rem;color:var(--gold);}
+
+/* ── DREAMS ── */
+#dreams{padding:80px 20px;text-align:center;}
+.dreams-list{max-width:700px;margin:55px auto 0;display:flex;flex-direction:column;gap:18px;}
+.dream-item{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:22px 28px;display:flex;align-items:center;gap:18px;backdrop-filter:blur(10px);transition:all .3s;text-align:left;}
+.dream-item:hover{border-color:var(--gold);transform:translateX(10px);}
+.dream-num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:var(--gold-dark);min-width:46px;}
+.dream-text{font-size:1.05rem;color:var(--cream);line-height:1.7;}
+.dream-text em{color:var(--rose);font-style:italic;}
+
+/* ── MESSAGE ── */
+#message{padding:100px 20px;text-align:center;}
+.message-card{max-width:740px;margin:0 auto;background:var(--glass);border:1px solid var(--glass-border);border-radius:24px;padding:58px 48px;backdrop-filter:blur(20px);position:relative;}
+.message-card::before{content:'"';position:absolute;top:-18px;left:28px;font-family:'Playfair Display',serif;font-size:7rem;color:var(--gold);opacity:0.12;line-height:1;}
+.message-text{font-family:'Playfair Display',serif;font-size:clamp(1.15rem,2.8vw,1.7rem);font-style:italic;color:var(--cream);line-height:1.9;margin-bottom:28px;}
+.message-sig{font-family:'Dancing Script',cursive;font-size:1.5rem;color:var(--gold);}
+
+/* ── FOOTER ── */
+footer{padding:40px 20px;text-align:center;border-top:1px solid var(--glass-border);}
+.footer-name{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--gold);margin-bottom:8px;}
+.social-links{display:flex;justify-content:center;gap:20px;margin:16px 0;}
+.social-links a{color:var(--cream2);font-size:1.15rem;transition:color .3s,transform .3s;text-decoration:none;}
+.social-links a:hover{color:var(--gold);transform:scale(1.2);}
+.footer-copy{font-family:'Inter',sans-serif;font-size:0.68rem;letter-spacing:2px;color:var(--gold-dark);text-transform:uppercase;}
+
+/* FLOATING */
+.heart-float{position:fixed;pointer-events:none;z-index:0;animation:floatHeart 7s ease-in infinite;opacity:0;}
+
+/* ══════ ADMIN ══════ */
+#admin-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);overflow-y:auto;padding:20px 0;}
+#admin-panel{max-width:920px;margin:0 auto;background:#0B0B18;border:1px solid var(--gold-dark);border-radius:24px;padding:40px;position:relative;}
+#admin-panel h2{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);margin-bottom:6px;}
+.admin-sub{font-size:0.75rem;color:var(--cream2);letter-spacing:2px;margin-bottom:28px;font-family:'Inter',sans-serif;}
+.close-admin{position:absolute;top:18px;right:18px;background:transparent;border:1px solid var(--gold-dark);color:var(--gold);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:0.95rem;display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.close-admin:hover{background:var(--gold);color:var(--bg);}
+.admin-tabs{display:flex;gap:5px;margin-bottom:28px;flex-wrap:wrap;}
+.admin-tab{background:transparent;border:1px solid rgba(201,168,76,0.2);color:var(--cream2);padding:7px 16px;border-radius:30px;cursor:pointer;font-size:0.7rem;letter-spacing:1px;font-family:'Inter',sans-serif;transition:all .3s;}
+.admin-tab.active,.admin-tab:hover{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+.admin-section{display:none;}
+.admin-section.active{display:block;}
+.admin-group{margin-bottom:22px;}
+.admin-group label{display:block;font-family:'Inter',sans-serif;font-size:0.67rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
+.admin-group input,.admin-group textarea,.admin-group select{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:11px 15px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;transition:border-color .3s;}
+.admin-group input:focus,.admin-group textarea:focus{border-color:var(--gold);}
+.admin-group textarea{min-height:85px;resize:vertical;}
+.hint{font-size:0.67rem;color:var(--cream2);margin-top:5px;font-family:'Inter',sans-serif;}
+.admin-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.save-btn{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--bg);border:none;padding:13px 38px;border-radius:30px;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;font-weight:600;transition:all .3s;margin-top:8px;}
+.save-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,168,76,0.3);}
+.add-btn{background:rgba(201,168,76,0.08);border:1px dashed var(--gold-dark);color:var(--gold);padding:9px 18px;border-radius:10px;cursor:pointer;font-size:0.72rem;letter-spacing:1px;font-family:'Inter',sans-serif;width:100%;margin-top:8px;transition:all .3s;}
+.add-btn:hover{background:rgba(201,168,76,0.18);}
+.admin-item-row{display:flex;gap:9px;align-items:flex-start;margin-bottom:10px;}
+.admin-item-row input,.admin-item-row textarea{flex:1;}
+.del-btn{background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.25);color:#ff7070;width:34px;height:34px;min-width:34px;border-radius:8px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.del-btn:hover{background:rgba(255,80,80,0.25);}
+.admin-color-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.color-item{text-align:center;}
+.color-item label{display:block;font-size:0.62rem;letter-spacing:1px;color:var(--cream2);margin-bottom:5px;font-family:'Inter',sans-serif;}
+.color-item input[type=color]{width:100%;height:48px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;cursor:pointer;padding:2px;}
+.success-toast{position:fixed;bottom:28px;right:28px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--bg);padding:13px 22px;border-radius:30px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;z-index:99999;opacity:0;transform:translateY(20px);transition:all .4s;pointer-events:none;}
+.success-toast.show{opacity:1;transform:translateY(0);}
+
+/* PASSWORD MODAL */
+#pwd-modal{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;}
+#pwd-modal.show{display:flex;}
+.pwd-box{background:#0B0B18;border:1px solid var(--gold-dark);border-radius:22px;padding:48px 38px;text-align:center;max-width:380px;width:90%;}
+.pwd-box h3{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);margin-bottom:7px;}
+.pwd-box p{font-size:0.82rem;color:var(--cream2);margin-bottom:22px;font-family:'Inter',sans-serif;}
+.pwd-box input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:13px;color:var(--cream);font-size:1rem;outline:none;text-align:center;letter-spacing:4px;margin-bottom:14px;}
+.pwd-err{color:#ff7070;font-size:0.72rem;margin:-6px 0 10px;font-family:'Inter',sans-serif;display:none;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ANIMATIONS */
+@keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floatHeart{0%{transform:translateY(100vh) scale(0) rotate(0deg);opacity:0}10%{opacity:.8}90%{opacity:.3}100%{transform:translateY(-5vh) scale(1.2) rotate(360deg);opacity:0}}
+@keyframes pulse-small{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:14px 18px;}
+  .nav-links{display:none;}
+  .about-grid{grid-template-columns:1fr;}
+  .about-stats{grid-template-columns:1fr 1fr;}
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+  .gallery-item.big{grid-column:span 2;}
+  #admin-panel{margin:10px;padding:22px;}
+  .admin-row{grid-template-columns:1fr;}
+  .admin-color-row{grid-template-columns:1fr 1fr;}
+  .message-card{padding:36px 22px;}
+  .vibes-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="starCanvas"></canvas>
+
+<!-- PASSWORD MODAL -->
+<div id="pwd-modal">
+  <div class="pwd-box">
+    <h3>✦ Admin Access</h3>
+    <p>Enter your secret password</p>
+    <input type="password" id="pwd-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPwd()"/>
+    <div class="pwd-err" id="pwd-err">❌ Wrong password. Try again.</div>
+    <button class="save-btn" onclick="checkPwd()">Enter ✦</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="success-toast" id="toast">✦ Changes Saved!</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" id="nav-logo">Sonu Kumar</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#vibes">Vibes</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#dreams">Dreams</a></li>
+    <li><a href="#message">Message</a></li>
+  </ul>
+  <button class="admin-btn-nav" onclick="openAdminPwd()">⚙ Admin</button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="flag-strip" id="flag-strip">
+    <span>🚩</span><span>🚩</span><span>☄️</span><span>🚩</span><span>🚩</span>
+  </div>
+  <div class="hero-badge" id="hero-badge">✦ 18th Birthday Special • 25 June 2025 ✦</div>
+  <div class="hero-avatar-wrap">
+    <div class="avatar-ring3"></div>
+    <div class="avatar-ring2"></div>
+    <div class="avatar-ring"></div>
+    <img class="hero-avatar" id="hero-avatar" src="https://ui-avatars.com/api/?name=SK&background=1a0a2e&color=C9A84C&size=200&bold=true&font-size=0.5" alt="Sonu Kumar"/>
+    <div class="bday-ribbon">🎂 18</div>
+  </div>
+  <h1 class="hero-name" id="hero-name">Sonu Kumar</h1>
+  <div class="hero-tagline" id="hero-tagline">Simple Life, High Goals 🎯</div>
+  <div class="hero-bdate" id="hero-bdate">🎂 DOB • 25 · 06 · 2008</div>
+  <div class="hero-location" id="hero-location">📍 UP, India 🇮🇳 &nbsp;|&nbsp; 🛕 Hindu</div>
+  <div class="bio-pills" id="bio-pills">
+    <span class="bio-pill">🌿 Simple Life, 🎯 High Goals</span>
+    <span class="bio-pill">🤫 Work Hard in Silence</span>
+    <span class="bio-pill">❤️‍🔥 Let Success Make Noise 💥</span>
+  </div>
+  <div class="scroll-hint">Scroll Down <em></em></div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <span class="section-eyebrow">Who I Am</span>
+      <h2 class="section-title" id="about-title">A Soul with Big Dreams 👑</h2>
+      <p class="section-subtitle" id="about-text">Hey! I'm Sonu Kumar — a developer, a dreamer, and someone who believes in working hard in silence while letting success speak loudly. Born to rise, built to shine. I create things that matter, from Telegram bots to big dreams that touch the sky. Life is simple, goals are high.</p>
+      <div class="about-info" id="about-info" style="margin-top:22px;">
+        <div class="info-row"><span class="info-icon">👑</span><div><div class="info-label">Full Name</div><div class="info-val" id="info-name">Sonu Kumar</div></div></div>
+        <div class="info-row"><span class="info-icon">📸</span><div><div class="info-label">Instagram</div><div class="info-val"><a href="https://instagram.com/sonu1917x" target="_blank" style="color:var(--gold);text-decoration:none;">@sonu1917x</a></div></div></div>
+        <div class="info-row"><span class="info-icon">📍</span><div><div class="info-label">Location</div><div class="info-val" id="info-loc">UP, India 🇮🇳</div></div></div>
+        <div class="info-row"><span class="info-icon">🛕</span><div><div class="info-label">Religion</div><div class="info-val" id="info-rel">Hindu 🙏</div></div></div>
+        <div class="info-row"><span class="info-icon">💎</span><div><div class="info-label">Mine</div><div class="info-val" id="info-mine">Everything ✨</div></div></div>
+      </div>
+      <div class="about-tags" id="about-tags-wrap">
+        <span class="tag">💻 Developer</span>
+        <span class="tag">🤖 Bot Creator</span>
+        <span class="tag">🎯 Focused</span>
+        <span class="tag">🌿 Simple</span>
+        <span class="tag">🇮🇳 Proud Indian</span>
+        <span class="tag">👑 Born to Win</span>
+      </div>
+    </div>
+    <div class="reveal" id="about-stats-wrap">
+      <div class="about-stats">
+        <div class="stat-card"><div class="stat-num" id="stat1-num">18</div><div class="stat-label" id="stat1-label">Years Young</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat2-num">∞</div><div class="stat-label" id="stat2-label">Dreams</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat3-num">100%</div><div class="stat-label" id="stat3-label">Real & Original</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat4-num">24/7</div><div class="stat-label" id="stat4-label">Grind Mode</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIBES ══ -->
+<section id="vibes">
+  <div style="text-align:center;" class="reveal">
+    <span class="section-eyebrow">My Universe</span>
+    <h2 class="section-title">Things I Love</h2>
+  </div>
+  <div class="vibes-grid" id="vibes-grid">
+    <div class="vibe-card"><span class="vibe-icon">🤖</span><div class="vibe-name">Bot Development</div><div class="vibe-desc">Building smart Telegram bots that feel alive</div></div>
+    <div class="vibe-card"><span class="vibe-icon">🎯</span><div class="vibe-name">High Goals</div><div class="vibe-desc">Eyes on the top, no room for settling</div></div>
+    <div class="vibe-card"><span class="vibe-icon">🌿</span><div class="vibe-name">Simple Life</div><div class="vibe-desc">Less noise, more peace. Less talk, more action</div></div>
+    <div class="vibe-card"><span class="vibe-icon">💻</span><div class="vibe-name">Coding</div><div class="vibe-desc">Turning ideas into reality with Python & code</div></div>
+    <div class="vibe-card"><span class="vibe-icon">🇮🇳</span><div class="vibe-name">Proud Indian</div><div class="vibe-desc">Born in UP, heart full of desh bhakti</div></div>
+    <div class="vibe-card"><span class="vibe-icon">✨</span><div class="vibe-name">Dreaming Big</div><div class="vibe-desc">Chasing stars nobody else dares to reach</div></div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section id="gallery">
+  <div style="text-align:center;" class="reveal">
+    <span class="section-eyebrow">Memories</span>
+    <h2 class="section-title">My Gallery</h2>
+  </div>
+  <div class="gallery-grid" id="gallery-grid">
+    <div class="gallery-item big"><img id="gi0" src="https://images.unsplash.com/photo-1518791841217-8f162f1912da?w=600" alt=""/><div class="overlay"><span class="gallery-caption" id="gc0">Golden Moments ✨</span></div></div>
+    <div class="gallery-item"><img id="gi1" src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=400" alt=""/><div class="overlay"><span class="gallery-caption" id="gc1">Night Sky 🌙</span></div></div>
+    <div class="gallery-item"><img id="gi2" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400" alt=""/><div class="overlay"><span class="gallery-caption" id="gc2">Nature 🌿</span></div></div>
+    <div class="gallery-item"><img id="gi3" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt=""/><div class="overlay"><span class="gallery-caption" id="gc3">The Real Me 💫</span></div></div>
+    <div class="gallery-item"><img id="gi4" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400" alt=""/><div class="overlay"><span class="gallery-caption" id="gc4">Beautiful Life 🌸</span></div></div>
+  </div>
+</section>
+
+<!-- ══ DREAMS ══ -->
+<section id="dreams">
+  <div class="reveal">
+    <span class="section-eyebrow">Future</span>
+    <h2 class="section-title">Dreams & Goals</h2>
+  </div>
+  <div class="dreams-list" id="dreams-list">
+    <div class="dream-item"><div class="dream-num">01</div><div class="dream-text">Build something <em>legendary</em> — a bot or app that millions will use and love.</div></div>
+    <div class="dream-item"><div class="dream-num">02</div><div class="dream-text"><em>Work hard in silence</em> — grind every single day until success speaks for itself.</div></div>
+    <div class="dream-item"><div class="dream-num">03</div><div class="dream-text">Make my <em>family proud</em> — give them the life they deserve.</div></div>
+    <div class="dream-item"><div class="dream-num">04</div><div class="dream-text">Stay <em>real and original</em> — never change who I am for anyone.</div></div>
+  </div>
+</section>
+
+<!-- ══ MESSAGE ══ -->
+<section id="message">
+  <div class="divider reveal"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line rev"></div></div>
+  <div class="message-card reveal">
+    <p class="message-text" id="message-text">Aaj mera 18th birthday hai — ek naya chapter, ek naya safar. To everyone who is part of my journey, thank you from the bottom of my heart. Life is beautiful when you keep your goals high and your heart pure. Work hard in silence, let success make noise. Jai Hind! 🇮🇳🙏</p>
+    <div class="message-sig" id="message-sig">— Sonu Kumar 👑🌹</div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-name" id="footer-name">Sonu Kumar</div>
+  <div class="social-links">
+    <a id="social-telegram" href="https://t.me/danger_devil1" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+    <a id="social-instagram" href="https://instagram.com/sonu1917x" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a id="social-github" href="#" title="GitHub"><i class="fab fa-github"></i></a>
+  </div>
+  <div class="footer-copy" id="footer-copy">© 2025 Sonu Kumar • UP, India 🇮🇳 • Made with ❤️ & Gold</div>
+</footer>
+
+<!-- ══════════ ADMIN PANEL ══════════ -->
+<div id="admin-overlay">
+ <div id="admin-panel">
+  <h2>✦ Admin Panel</h2>
+  <div class="admin-sub">Apni website ka sab kuch yahan se edit karo</div>
+  <button class="close-admin" onclick="closeAdmin()">✕</button>
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="switchTab('t-hero',this)">🏠 Hero</button>
+    <button class="admin-tab" onclick="switchTab('t-about',this)">👤 About</button>
+    <button class="admin-tab" onclick="switchTab('t-info',this)">📋 Info</button>
+    <button class="admin-tab" onclick="switchTab('t-vibes',this)">✨ Vibes</button>
+    <button class="admin-tab" onclick="switchTab('t-gallery',this)">🖼 Gallery</button>
+    <button class="admin-tab" onclick="switchTab('t-dreams',this)">🎯 Dreams</button>
+    <button class="admin-tab" onclick="switchTab('t-msg',this)">💬 Message</button>
+    <button class="admin-tab" onclick="switchTab('t-social',this)">🔗 Social</button>
+    <button class="admin-tab" onclick="switchTab('t-colors',this)">🎨 Colors</button>
+    <button class="admin-tab" onclick="switchTab('t-pwd',this)">🔐 Password</button>
+  </div>
+
+  <!-- HERO -->
+  <div class="admin-section active" id="t-hero">
+    <div class="admin-group"><label>Apna Naam</label><input id="a-name" value="Sonu Kumar"/></div>
+    <div class="admin-group"><label>Profile Photo URL</label><input id="a-avatar" placeholder="https://i.imgur.com/... ya koi bhi image link"/><div class="hint">Imgur, ImgBB ya koi direct image URL paste karo. Khali rehne do to initials dikhega.</div></div>
+    <div class="admin-group"><label>Tagline (Hero ke neeche)</label><input id="a-tagline" value="Simple Life, High Goals 🎯"/></div>
+    <div class="admin-group"><label>Birthday Date Text</label><input id="a-bdate" value="🎂 DOB • 25 · 06 · 2008"/></div>
+    <div class="admin-group"><label>Location Text</label><input id="a-hloc" value="📍 UP, India 🇮🇳 | 🛕 Hindu"/></div>
+    <div class="admin-group"><label>Badge Text (sabse upar)</label><input id="a-badge" value="✦ 18th Birthday Special • 25 June 2025 ✦"/></div>
+    <div class="admin-group"><label>Bio Pills (comma se alag karo)</label><input id="a-biopills" value="🌿 Simple Life 🎯 High Goals,🤫 Work Hard in Silence,❤️‍🔥 Let Success Make Noise 💥"/></div>
+    <button class="save-btn" onclick="saveHero()">✦ Save Hero</button>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="admin-section" id="t-about">
+    <div class="admin-group"><label>Section Title</label><input id="a-atitle" value="A Soul with Big Dreams 👑"/></div>
+    <div class="admin-group"><label>Bio Text</label><textarea id="a-atext">Hey! I'm Sonu Kumar — a developer, a dreamer, and someone who believes in working hard in silence while letting success speak loudly. Born to rise, built to shine. I create things that matter, from Telegram bots to big dreams that touch the sky. Life is simple, goals are high.</textarea></div>
+    <div class="admin-group"><label>Tags (comma separated, emoji dalo)</label><input id="a-atags" value="💻 Developer,🤖 Bot Creator,🎯 Focused,🌿 Simple,🇮🇳 Proud Indian,👑 Born to Win"/></div>
+    <div style="margin:16px 0 10px;color:var(--gold);font-family:'Inter',sans-serif;font-size:0.67rem;letter-spacing:2px;text-transform:uppercase;">Stats Cards</div>
+    <div class="admin-row">
+      <div class="admin-group"><label>Stat 1 Number</label><input id="a-s1n" value="18"/></div>
+      <div class="admin-group"><label>Stat 1 Label</label><input id="a-s1l" value="Years Young"/></div>
+      <div class="admin-group"><label>Stat 2 Number</label><input id="a-s2n" value="∞"/></div>
+      <div class="admin-group"><label>Stat 2 Label</label><input id="a-s2l" value="Dreams"/></div>
+      <div class="admin-group"><label>Stat 3 Number</label><input id="a-s3n" value="100%"/></div>
+      <div class="admin-group"><label>Stat 3 Label</label><input id="a-s3l" value="Real & Original"/></div>
+      <div class="admin-group"><label>Stat 4 Number</label><input id="a-s4n" value="24/7"/></div>
+      <div class="admin-group"><label>Stat 4 Label</label><input id="a-s4l" value="Grind Mode"/></div>
+    </div>
+    <button class="save-btn" onclick="saveAbout()">✦ Save About</button>
+  </div>
+
+  <!-- INFO ROWS -->
+  <div class="admin-section" id="t-info">
+    <div style="margin-bottom:14px;font-size:0.8rem;color:var(--cream2);font-family:'Inter',sans-serif;">About section ke info cards edit karo</div>
+    <div class="admin-group"><label>Full Name</label><input id="i-name" value="Sonu Kumar"/></div>
+    <div class="admin-group"><label>Location</label><input id="i-loc" value="UP, India 🇮🇳"/></div>
+    <div class="admin-group"><label>Religion</label><input id="i-rel" value="Hindu 🙏"/></div>
+    <div class="admin-group"><label>Mine / Special line</label><input id="i-mine" value="Everything ✨"/></div>
+    <button class="save-btn" onclick="saveInfo()">✦ Save Info</button>
+  </div>
+
+  <!-- VIBES -->
+  <div class="admin-section" id="t-vibes">
+    <div style="margin-bottom:13px;font-size:0.78rem;color:var(--cream2);font-family:'Inter',sans-serif;">Format: Emoji | Naam | Description</div>
+    <div id="vibes-admin-list"></div>
+    <button class="add-btn" onclick="addVibe()">+ Naya Vibe Card Add Karo</button><br/>
+    <button class="save-btn" style="margin-top:14px;" onclick="saveVibes()">✦ Save Vibes</button>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="admin-section" id="t-gallery">
+    <div style="margin-bottom:13px;font-size:0.78rem;color:var(--cream2);font-family:'Inter',sans-serif;">Pehli photo BIG dikhai degi. Direct image URLs use karo.</div>
+    <div id="gallery-admin-list"></div>
+    <button class="add-btn" onclick="addGallery()">+ Naya Photo Add Karo</button><br/>
+    <button class="save-btn" style="margin-top:14px;" onclick="saveGallery()">✦ Save Gallery</button>
+  </div>
+
+  <!-- DREAMS -->
+  <div class="admin-section" id="t-dreams">
+    <div style="margin-bottom:13px;font-size:0.78rem;color:var(--cream2);font-family:'Inter',sans-serif;">*word* likhne se italic ho jaega. E.g.: Build something *legendary*</div>
+    <div id="dreams-admin-list"></div>
+    <button class="add-btn" onclick="addDream()">+ Naya Dream Add Karo</button><br/>
+    <button class="save-btn" style="margin-top:14px;" onclick="saveDreams()">✦ Save Dreams</button>
+  </div>
+
+  <!-- MESSAGE -->
+  <div class="admin-section" id="t-msg">
+    <div class="admin-group"><label>Main Message</label><textarea id="a-mtext" style="min-height:130px;">Aaj mera 18th birthday hai — ek naya chapter, ek naya safar. To everyone who is part of my journey, thank you from the bottom of my heart. Life is beautiful when you keep your goals high and your heart pure. Work hard in silence, let success make noise. Jai Hind! 🇮🇳🙏</textarea></div>
+    <div class="admin-group"><label>Signature</label><input id="a-msig" value="— Sonu Kumar 👑🌹"/></div>
+    <div class="admin-group"><label>Footer Name</label><input id="a-fname" value="Sonu Kumar"/></div>
+    <div class="admin-group"><label>Footer Copyright</label><input id="a-fcopy" value="© 2025 Sonu Kumar • UP, India 🇮🇳 • Made with ❤️ & Gold"/></div>
+    <button class="save-btn" onclick="saveMsg()">✦ Save Message</button>
+  </div>
+
+  <!-- SOCIAL -->
+  <div class="admin-section" id="t-social">
+    <div class="admin-group"><label>Telegram Link</label><input id="a-tg" value="https://t.me/danger_devil1"/></div>
+    <div class="admin-group"><label>Instagram Link</label><input id="a-ig" value="https://instagram.com/sonu1917x"/></div>
+    <div class="admin-group"><label>GitHub Link</label><input id="a-gh" value="#"/></div>
+    <button class="save-btn" onclick="saveSocial()">✦ Save Social</button>
+  </div>
+
+  <!-- COLORS -->
+  <div class="admin-section" id="t-colors">
+    <div style="margin-bottom:14px;font-size:0.78rem;color:var(--cream2);font-family:'Inter',sans-serif;">Poori website ka color theme change karo.</div>
+    <div class="admin-color-row">
+      <div class="color-item"><label>Gold (Primary)</label><input type="color" id="c-gold" value="#C9A84C"/></div>
+      <div class="color-item"><label>Rose (Accent)</label><input type="color" id="c-rose" value="#E8A598"/></div>
+      <div class="color-item"><label>Background</label><input type="color" id="c-bg" value="#07070F"/></div>
+      <div class="color-item"><label>Text Color</label><input type="color" id="c-text" value="#F0E8D8"/></div>
+      <div class="color-item"><label>Gold Light</label><input type="color" id="c-gl" value="#E8C97A"/></div>
+      <div class="color-item"><label>Gold Dark</label><input type="color" id="c-gd" value="#8A6B1E"/></div>
+    </div>
+    <button class="save-btn" style="margin-top:18px;" onclick="saveColors()">✦ Apply Colors</button>
+  </div>
+
+  <!-- PASSWORD -->
+  <div class="admin-section" id="t-pwd">
+    <div style="margin-bottom:18px;font-size:0.85rem;color:var(--cream2);font-family:'Inter',sans-serif;">Default password: <strong style="color:var(--gold);">sonu2025</strong></div>
+    <div class="admin-group"><label>Current Password</label><input type="password" id="p-cur" placeholder="Current password"/></div>
+    <div class="admin-group"><label>New Password</label><input type="password" id="p-new" placeholder="New password"/></div>
+    <div class="admin-group"><label>Confirm New Password</label><input type="password" id="p-con" placeholder="Confirm password"/></div>
+    <div id="p-msg" style="font-size:0.78rem;margin-bottom:8px;font-family:'Inter',sans-serif;"></div>
+    <button class="save-btn" onclick="changePwd()">✦ Change Password</button>
+  </div>
+ </div>
+</div>
+
+<script>
+// ══════════════════════════════
+//  DATA LAYER
+// ══════════════════════════════
+const DEF = {
+  name:'Sonu Kumar', avatar:'',
+  tagline:'Simple Life, High Goals 🎯',
+  bdate:'🎂 DOB • 25 · 06 · 2008',
+  hloc:'📍 UP, India 🇮🇳 | 🛕 Hindu',
+  badge:'✦ 18th Birthday Special • 25 June 2025 ✦',
+  biopills:'🌿 Simple Life 🎯 High Goals,🤫 Work Hard in Silence,❤️‍🔥 Let Success Make Noise 💥',
+  aboutTitle:'A Soul with Big Dreams 👑',
+  aboutText:"Hey! I'm Sonu Kumar — a developer, a dreamer, and someone who believes in working hard in silence while letting success speak loudly. Born to rise, built to shine. I create things that matter, from Telegram bots to big dreams that touch the sky. Life is simple, goals are high.",
+  aboutTags:'💻 Developer,🤖 Bot Creator,🎯 Focused,🌿 Simple,🇮🇳 Proud Indian,👑 Born to Win',
+  infoName:'Sonu Kumar', infoLoc:'UP, India 🇮🇳', infoRel:'Hindu 🙏', infoMine:'Everything ✨',
+  s1n:'18',s1l:'Years Young',s2n:'∞',s2l:'Dreams',s3n:'100%',s3l:'Real & Original',s4n:'24/7',s4l:'Grind Mode',
+  vibes:[
+    {icon:'🤖',name:'Bot Development',desc:'Building smart Telegram bots that feel alive'},
+    {icon:'🎯',name:'High Goals',desc:'Eyes on the top, no room for settling'},
+    {icon:'🌿',name:'Simple Life',desc:'Less noise, more peace. Less talk, more action'},
+    {icon:'💻',name:'Coding',desc:'Turning ideas into reality with Python & code'},
+    {icon:'🇮🇳',name:'Proud Indian',desc:'Born in UP, heart full of desh bhakti'},
+    {icon:'✨',name:'Dreaming Big',desc:"Chasing stars nobody else dares to reach"}
+  ],
+  gallery:[
+    {url:'https://images.unsplash.com/photo-1518791841217-8f162f1912da?w=600',cap:'Golden Moments ✨'},
+    {url:'https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=400',cap:'Night Sky 🌙'},
+    {url:'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400',cap:"Nature 🌿"},
+    {url:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',cap:'The Real Me 💫'},
+    {url:'https://images.unsplash.com/photo-1519741497674-611481863552?w=400',cap:'Beautiful Life 🌸'}
+  ],
+  dreams:[
+    "Build something *legendary* — a bot or app that millions will use and love.",
+    "*Work hard in silence* — grind every single day until success speaks for itself.",
+    "Make my *family proud* — give them the life they deserve.",
+    "Stay *real and original* — never change who I am for anyone."
+  ],
+  msgText:"Aaj mera 18th birthday hai — ek naya chapter, ek naya safar. To everyone who is part of my journey, thank you from the bottom of my heart. Life is beautiful when you keep your goals high and your heart pure. Work hard in silence, let success make noise. Jai Hind! 🇮🇳🙏",
+  msgSig:'— Sonu Kumar 👑🌹',
+  footerName:'Sonu Kumar',
+  footerCopy:'© 2025 Sonu Kumar • UP, India 🇮🇳 • Made with ❤️ & Gold',
+  telegram:'https://t.me/danger_devil1',
+  instagram:'https://instagram.com/sonu1917x',
+  github:'#',
+  colors:{gold:'#C9A84C',rose:'#E8A598',bg:'#07070F',text:'#F0E8D8',goldLight:'#E8C97A',goldDark:'#8A6B1E'},
+  password:'sonu2025'
+};
+
+function getD(){try{const s=localStorage.getItem('sk_site');return s?{...DEF,...JSON.parse(s)}:{...DEF};}catch{return {...DEF};}}
+function setD(d){localStorage.setItem('sk_site',JSON.stringify(d));}
+let D=getD();
+
+// ══════════════════════════════
+//  APPLY TO PAGE
+// ══════════════════════════════
+function applyAll(){
+  applyColors();
+  const n=D.name||'Sonu Kumar';
+  document.getElementById('page-title').textContent=n+' • Birthday Special 🎂';
+  document.getElementById('nav-logo').textContent=n;
+  document.getElementById('hero-name').textContent=n;
+  document.getElementById('hero-badge').textContent=D.badge;
+  document.getElementById('hero-tagline').textContent=D.tagline;
+  document.getElementById('hero-bdate').textContent=D.bdate;
+  document.getElementById('hero-location').innerHTML=D.hloc;
+  // avatar
+  const av=document.getElementById('hero-avatar');
+  const initials=n.split(' ').map(w=>w[0]).join('').toUpperCase();
+  av.src=D.avatar||`https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=1a0a2e&color=C9A84C&size=200&bold=true&font-size=0.5`;
+  // bio pills
+  const pills=(D.biopills||'').split(',').map(p=>p.trim()).filter(Boolean);
+  document.getElementById('bio-pills').innerHTML=pills.map(p=>`<span class="bio-pill">${p}</span>`).join('');
+  // about
+  document.getElementById('about-title').textContent=D.aboutTitle;
+  document.getElementById('about-text').textContent=D.aboutText;
+  document.getElementById('info-name').textContent=D.infoName;
+  document.getElementById('info-loc').textContent=D.infoLoc;
+  document.getElementById('info-rel').textContent=D.infoRel;
+  document.getElementById('info-mine').textContent=D.infoMine;
+  const tags=(D.aboutTags||'').split(',').map(t=>t.trim()).filter(Boolean);
+  document.getElementById('about-tags-wrap').innerHTML=tags.map(t=>`<span class="tag">${t}</span>`).join('');
+  // stats
+  ['1','2','3','4'].forEach(i=>{document.getElementById('stat'+i+'n').textContent=D['s'+i+'n'];document.getElementById('stat'+i+'l').textContent=D['s'+i+'l'];});
+  // wait — ids are stat1-num etc
+  document.getElementById('stat1-num').textContent=D.s1n;document.getElementById('stat1-label').textContent=D.s1l;
+  document.getElementById('stat2-num').textContent=D.s2n;document.getElementById('stat2-label').textContent=D.s2l;
+  document.getElementById('stat3-num').textContent=D.s3n;document.getElementById('stat3-label').textContent=D.s3l;
+  document.getElementById('stat4-num').textContent=D.s4n;document.getElementById('stat4-label').textContent=D.s4l;
+  // vibes
+  document.getElementById('vibes-grid').innerHTML=D.vibes.map(v=>`<div class="vibe-card"><span class="vibe-icon">${v.icon}</span><div class="vibe-name">${v.name}</div><div class="vibe-desc">${v.desc}</div></div>`).join('');
+  // gallery
+  document.getElementById('gallery-grid').innerHTML=D.gallery.map((g,i)=>`<div class="gallery-item${i===0?' big':''}"><img src="${g.url}" alt="Memory ${i+1}" style="width:100%;height:100%;object-fit:cover;transition:transform .5s;"/><div class="overlay"><span class="gallery-caption">${g.cap}</span></div></div>`).join('');
+  // add hover via JS
+  document.querySelectorAll('.gallery-item img').forEach(img=>{img.closest('.gallery-item').onmouseenter=()=>img.style.transform='scale(1.06)';img.closest('.gallery-item').onmouseleave=()=>img.style.transform='scale(1)';});
+  // dreams
+  document.getElementById('dreams-list').innerHTML=D.dreams.map((d,i)=>`<div class="dream-item"><div class="dream-num">${String(i+1).padStart(2,'0')}</div><div class="dream-text">${d.replace(/\*([^*]+)\*/g,'<em>$1</em>')}</div></div>`).join('');
+  // message
+  document.getElementById('message-text').textContent=D.msgText;
+  document.getElementById('message-sig').textContent=D.msgSig;
+  document.getElementById('footer-name').textContent=D.footerName;
+  document.getElementById('footer-copy').textContent=D.footerCopy;
+  document.getElementById('social-telegram').href=D.telegram||'#';
+  document.getElementById('social-instagram').href=D.instagram||'#';
+  document.getElementById('social-github').href=D.github||'#';
+}
+
+function applyColors(){
+  const c=D.colors||DEF.colors;
+  const r=document.documentElement;
+  r.style.setProperty('--gold',c.gold);
+  r.style.setProperty('--gold-light',c.goldLight);
+  r.style.setProperty('--gold-dark',c.goldDark);
+  r.style.setProperty('--rose',c.rose);
+  r.style.setProperty('--bg',c.bg);
+  r.style.setProperty('--text',c.text);
+}
+
+// ══════════════════════════════
+//  PASSWORD
+// ══════════════════════════════
+function openAdminPwd(){
+  document.getElementById('pwd-modal').style.display='flex';
+  document.getElementById('pwd-input').value='';
+  document.getElementById('pwd-err').style.display='none';
+  setTimeout(()=>document.getElementById('pwd-input').focus(),120);
+}
+function checkPwd(){
+  if(document.getElementById('pwd-input').value===(D.password||'sonu2025')){
+    document.getElementById('pwd-modal').style.display='none';
+    openAdmin();
+  } else {
+    document.getElementById('pwd-err').style.display='block';
+    document.getElementById('pwd-input').value='';
+  }
+}
+document.getElementById('pwd-modal').onclick=function(e){if(e.target===this)this.style.display='none';};
+
+// ══════════════════════════════
+//  ADMIN OPEN / CLOSE
+// ══════════════════════════════
+function openAdmin(){
+  document.getElementById('admin-overlay').style.display='block';
+  // fill all fields
+  const f=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val||'';};
+  f('a-name',D.name);f('a-avatar',D.avatar);f('a-tagline',D.tagline);f('a-bdate',D.bdate);
+  f('a-hloc',D.hloc);f('a-badge',D.badge);f('a-biopills',D.biopills);
+  f('a-atitle',D.aboutTitle);f('a-atext',D.aboutText);f('a-atags',D.aboutTags);
+  f('i-name',D.infoName);f('i-loc',D.infoLoc);f('i-rel',D.infoRel);f('i-mine',D.infoMine);
+  f('a-s1n',D.s1n);f('a-s1l',D.s1l);f('a-s2n',D.s2n);f('a-s2l',D.s2l);
+  f('a-s3n',D.s3n);f('a-s3l',D.s3l);f('a-s4n',D.s4n);f('a-s4l',D.s4l);
+  f('a-mtext',D.msgText);f('a-msig',D.msgSig);f('a-fname',D.footerName);f('a-fcopy',D.footerCopy);
+  f('a-tg',D.telegram);f('a-ig',D.instagram);f('a-gh',D.github);
+  const c=D.colors||DEF.colors;
+  document.getElementById('c-gold').value=c.gold;document.getElementById('c-rose').value=c.rose;
+  document.getElementById('c-bg').value=c.bg;document.getElementById('c-text').value=c.text;
+  document.getElementById('c-gl').value=c.goldLight;document.getElementById('c-gd').value=c.goldDark;
+  buildVibesAdmin();buildGalleryAdmin();buildDreamsAdmin();
+}
+function closeAdmin(){document.getElementById('admin-overlay').style.display='none';}
+document.getElementById('admin-overlay').onclick=function(e){if(e.target===this)closeAdmin();};
+
+function switchTab(id,btn){
+  document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');btn.classList.add('active');
+}
+function toast(){const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function gv(id){return(document.getElementById(id)||{}).value||'';}
+
+// SAVE FUNCTIONS
+function saveHero(){D.name=gv('a-name');D.avatar=gv('a-avatar');D.tagline=gv('a-tagline');D.bdate=gv('a-bdate');D.hloc=gv('a-hloc');D.badge=gv('a-badge');D.biopills=gv('a-biopills');setD(D);applyAll();toast();}
+function saveAbout(){D.aboutTitle=gv('a-atitle');D.aboutText=gv('a-atext');D.aboutTags=gv('a-atags');D.s1n=gv('a-s1n');D.s1l=gv('a-s1l');D.s2n=gv('a-s2n');D.s2l=gv('a-s2l');D.s3n=gv('a-s3n');D.s3l=gv('a-s3l');D.s4n=gv('a-s4n');D.s4l=gv('a-s4l');setD(D);applyAll();toast();}
+function saveInfo(){D.infoName=gv('i-name');D.infoLoc=gv('i-loc');D.infoRel=gv('i-rel');D.infoMine=gv('i-mine');setD(D);applyAll();toast();}
+function saveMsg(){D.msgText=gv('a-mtext');D.msgSig=gv('a-msig');D.footerName=gv('a-fname');D.footerCopy=gv('a-fcopy');setD(D);applyAll();toast();}
+function saveSocial(){D.telegram=gv('a-tg');D.instagram=gv('a-ig');D.github=gv('a-gh');setD(D);applyAll();toast();}
+function saveColors(){D.colors={gold:gv('c-gold'),rose:gv('c-rose'),bg:gv('c-bg'),text:gv('c-text'),goldLight:gv('c-gl'),goldDark:gv('c-gd')};setD(D);applyColors();toast();}
+
+// VIBES
+function buildVibesAdmin(){
+  document.getElementById('vibes-admin-list').innerHTML=D.vibes.map((v,i)=>`
+    <div class="admin-item-row">
+      <input value="${v.icon}" placeholder="🎯" style="max-width:56px;text-align:center;" id="vi${i}"/>
+      <input value="${v.name}" placeholder="Naam" id="vn${i}"/>
+      <input value="${v.desc}" placeholder="Description" id="vd${i}"/>
+      <button class="del-btn" onclick="delVibe(${i})">✕</button>
+    </div>`).join('');}
+function addVibe(){D.vibes.push({icon:'✨',name:'New Vibe',desc:'Description yahan likho'});buildVibesAdmin();}
+function delVibe(i){D.vibes.splice(i,1);buildVibesAdmin();}
+function saveVibes(){D.vibes=D.vibes.map((_,i)=>({icon:gv('vi'+i),name:gv('vn'+i),desc:gv('vd'+i)}));setD(D);applyAll();toast();}
+
+// GALLERY
+function buildGalleryAdmin(){
+  document.getElementById('gallery-admin-list').innerHTML=D.gallery.map((g,i)=>`
+    <div class="admin-item-row" style="margin-bottom:14px;">
+      <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+        <input value="${g.url}" placeholder="Image URL (imgur/imgbb link)" id="gu${i}"/>
+        <input value="${g.cap}" placeholder="Caption" id="gc${i}"/>
+      </div>
+      <button class="del-btn" onclick="delGallery(${i})">✕</button>
+    </div>`).join('');}
+function addGallery(){D.gallery.push({url:'',cap:'Memory ✨'});buildGalleryAdmin();}
+function delGallery(i){D.gallery.splice(i,1);buildGalleryAdmin();}
+function saveGallery(){D.gallery=D.gallery.map((_,i)=>({url:gv('gu'+i),cap:gv('gc'+i)}));setD(D);applyAll();toast();}
+
+// DREAMS
+function buildDreamsAdmin(){
+  document.getElementById('dreams-admin-list').innerHTML=D.dreams.map((d,i)=>`
+    <div class="admin-item-row">
+      <input value="${d.replace(/"/g,'&quot;')}" placeholder="Apna dream likho... *word* italic karta hai" id="dr${i}"/>
+      <button class="del-btn" onclick="delDream(${i})">✕</button>
+    </div>`).join('');}
+function addDream(){D.dreams.push('Mera naya *dream* hai...');buildDreamsAdmin();}
+function delDream(i){D.dreams.splice(i,1);buildDreamsAdmin();}
+function saveDreams(){D.dreams=D.dreams.map((_,i)=>gv('dr'+i));setD(D);applyAll();toast();}
+
+// PASSWORD
+function changePwd(){
+  const cur=gv('p-cur'),nw=gv('p-new'),con=gv('p-con');
+  const msg=document.getElementById('p-msg');
+  if(cur!==(D.password||'sonu2025')){msg.style.color='#ff7070';msg.textContent='❌ Current password wrong hai!';return;}
+  if(!nw){msg.style.color='#ff7070';msg.textContent='❌ New password empty nahi ho sakta!';return;}
+  if(nw!==con){msg.style.color='#ff7070';msg.textContent='❌ Passwords match nahi kar rahe!';return;}
+  D.password=nw;setD(D);msg.style.color='var(--gold)';msg.textContent='✅ Password change ho gaya!';
+  document.getElementById('p-cur').value='';document.getElementById('p-new').value='';document.getElementById('p-con').value='';
+}
+
+// ══════════════════════════════
+//  STAR CANVAS
+// ══════════════════════════════
+const cvs=document.getElementById('starCanvas');
+const ctx=cvs.getContext('2d');
+let stars=[];
+function resizeCvs(){cvs.width=window.innerWidth;cvs.height=window.innerHeight;}
+resizeCvs();window.addEventListener('resize',resizeCvs);
+for(let i=0;i<220;i++)stars.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.4+0.3,a:Math.random(),da:Math.random()*0.008+0.002,sx:Math.random()*0.4-0.2});
+function drawStars(){
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  stars.forEach(s=>{
+    s.a+=s.da;if(s.a>1||s.a<0)s.da*=-1;
+    s.x+=s.sx;if(s.x<0)s.x=cvs.width;if(s.x>cvs.width)s.x=0;
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(201,168,76,${s.a*0.55})`;ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+drawStars();
+
+// Floating emojis
+const floatEmojis=['❤️','🌹','✨','💫','🌙','🎂','👑','🚩','🎯','🇮🇳'];
+function spawnFloat(){
+  const h=document.createElement('div');
+  h.className='heart-float';
+  h.textContent=floatEmojis[Math.floor(Math.random()*floatEmojis.length)];
+  h.style.cssText=`left:${Math.random()*100}vw;font-size:${0.8+Math.random()*1.2}rem;animation-duration:${5+Math.random()*5}s;animation-delay:${Math.random()}s;`;
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),11000);
+}
+setInterval(spawnFloat,1800);
+
+// ══════════════════════════════
+//  SCROLL REVEAL
+// ══════════════════════════════
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ══════════════════════════════
+//  INIT
+// ══════════════════════════════
+applyAll();
+</script>
+</body>
+</html>
